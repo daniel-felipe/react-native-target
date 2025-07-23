@@ -15,7 +15,7 @@ export default function Layout() {
 		Inter_700Bold,
 	});
 
-	if (isFontLoaded) {
+	if (!isFontLoaded) {
 		return <Loading size="large" />;
 	}
 
