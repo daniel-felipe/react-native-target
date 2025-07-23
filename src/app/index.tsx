@@ -1,12 +1,10 @@
-import { HomeHeader } from "@/components/HomeHeader";
-import { fontFamily } from "@/theme/fontFamily";
-import { router } from "expo-router";
-import { Button, Text, View } from "react-native";
+import { View } from 'react-native'
+import { HomeHeader } from '@/components/HomeHeader'
 
 export default function Index() {
-	return (
-		<View style={{ flex: 1 }}>
-			<HomeHeader />
-		</View>
-	);
+  return (
+    <View style={{ flex: 1 }}>
+      <HomeHeader />
+    </View>
+  )
 }
