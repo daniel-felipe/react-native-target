@@ -17,7 +17,9 @@
       "icon": "./assets/ios-icon.png"
     },
     "plugins": [
-      "expo-router"
-    ]
+      "expo-router",
+      "expo-font"
+    ],
+    "backgroundColor": "#ffffff"
   }
 }
