@@ -6,7 +6,7 @@ import { styles } from './styles'
 
 type Props = {
   title: string
-  subtitle: string
+  subtitle?: string
   rightButton?: {
     onPress: () => void
     icon: keyof typeof MaterialIcons.glyphMap
