@@ -17,6 +17,6 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     paddingBottom: 12,
     borderBottomWidth: 1,
-    borderBottomColor: colors.gray[400],
+    borderBottomColor: colors.gray[300],
   },
 })
