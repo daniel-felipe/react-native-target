@@ -1,6 +1,5 @@
-import { colors, fontFamily } from "@/theme";
-import { StyleSheet } from "react-native";
-
+import { StyleSheet } from 'react-native'
+import { colors, fontFamily } from '@/theme'
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,7 +8,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: colors.gray[100],
     borderRadius: 8,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   option: {
     flex: 1,
@@ -22,6 +21,6 @@ export const styles = StyleSheet.create({
   title: {
     fontFamily: fontFamily.medium,
     fontSize: 14,
-    color: colors.gray[500]
+    color: colors.gray[500],
   },
 })

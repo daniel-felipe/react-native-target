@@ -1,25 +1,23 @@
-import { View } from 'react-native'
-
-import { useLocalSearchParams } from 'expo-router'
-
-import { CurrencyInput } from '@/components/CurrencyInput'
-import { PageHeader } from '@/components/PageHeader'
-import { Input } from '@/components/Input'
-import { Button } from '@/components/Button'
-import { TransactionType } from '@/components/TransactionType'
-import { TransactionType as TransactionTypeEnum} from '@/enums/transaction-type'
+// import { useLocalSearchParams } from 'expo-router'
 import { useState } from 'react'
+import { View } from 'react-native'
+import { Button } from '@/components/Button'
+import { CurrencyInput } from '@/components/CurrencyInput'
+import { Input } from '@/components/Input'
+import { PageHeader } from '@/components/PageHeader'
+import { TransactionType } from '@/components/TransactionType'
+import { TransactionType as TransactionTypeEnum } from '@/enums/transaction-type'
 
 export default function Transaction() {
   const [type, setType] = useState(TransactionTypeEnum.Input)
 
-  const params = useLocalSearchParams<{ id: string }>()
+  // const params = useLocalSearchParams<{ id: string }>()
 
   return (
     <View style={{ flex: 1, padding: 24 }}>
-      <PageHeader 
-        title="Nova Transação" 
-        subtitle="A cada valor guardado você fica mais próximo da sua meta. Se esforce para guardar e evitar retirar." 
+      <PageHeader
+        title="Nova Transação"
+        subtitle="A cada valor guardado você fica mais próximo da sua meta. Se esforce para guardar e evitar retirar."
       />
 
       <View style={{ marginTop: 32, gap: 24 }}>

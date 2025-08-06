@@ -1,8 +1,8 @@
-import { TransactionType as TransactionTypeEnum } from "@/enums/transaction-type"
-import { View } from "react-native"
-import { styles } from "./styles"
-import { Option } from "./option"
-import { colors } from "@/theme"
+import { View } from 'react-native'
+import { TransactionType as TransactionTypeEnum } from '@/enums/transaction-type'
+import { colors } from '@/theme'
+import { Option } from './option'
+import { styles } from './styles'
 
 type Props = {
   selected: TransactionTypeEnum
@@ -12,7 +12,7 @@ type Props = {
 export function TransactionType({ selected, onChange }: Props) {
   return (
     <View style={styles.container}>
-      <Option 
+      <Option
         icon="arrow-upward"
         title="Guardar"
         isSelected={selected === TransactionTypeEnum.Input}
@@ -20,7 +20,7 @@ export function TransactionType({ selected, onChange }: Props) {
         onPress={() => onChange(TransactionTypeEnum.Input)}
       />
 
-      <Option 
+      <Option
         icon="arrow-downward"
         title="Resgatar"
         isSelected={selected === TransactionTypeEnum.Output}
