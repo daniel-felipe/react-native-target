@@ -5,6 +5,16 @@ export type TargetCreate = {
   amount: number
 }
 
+export type TargetResponse = {
+  id: number
+  name: string
+  amount: number
+  current: number
+  percentage: number
+  created_at: Date
+  updated_at: Date
+}
+
 export function useTargetDatabase() {
   const database = useSQLiteContext()
 
@@ -19,7 +29,23 @@ export function useTargetDatabase() {
     })
   }
 
+  async function listBySavedValue() {
+    return database.getAllAsync(`
+      SELECT 
+        targets.id,
+        targets.name,
+        targets.amount,
+        COALESCE(SUM(transactions.amount), 0) AS current,
+        COALESCE(SUM(transactions.amount) / targets.amount * 100, 0) AS percentage
+      FROM targets
+        LEFT JOIN transactions ON transactions.target_id = targets.id
+      GROUP BY targets.id, targets.name, targets.amount
+      ORDER BY current DESC
+    `)
+  }
+
   return {
     create,
+    listBySavedValue,
   }
 }
