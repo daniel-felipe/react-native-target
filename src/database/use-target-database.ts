@@ -1,30 +1,36 @@
-import { useSQLiteContext } from 'expo-sqlite'
+import { useSQLiteContext } from "expo-sqlite";
 
 export type TargetCreate = {
-  name: string
-  amount: number
-}
+  name: string;
+  amount: number;
+};
 
 export type TargetResponse = {
-  id: number
-  name: string
-  amount: number
-  current: number
-  percentage: number
-  created_at: Date
-  updated_at: Date
-}
+  id: number;
+  name: string;
+  amount: number;
+  current: number;
+  percentage: number;
+  created_at: Date;
+  updated_at: Date;
+};
+
+export type TargetUpdate = TargetCreate & {
+  id: number;
+};
 
 export function useTargetDatabase() {
-  const database = useSQLiteContext()
+  const database = useSQLiteContext();
 
   async function create(data: TargetCreate) {
-    const statement = await database.prepareAsync('INSERT INTO targets (name, amount) VALUES ($name, $amount)')
+    const statement = await database.prepareAsync(
+      "INSERT INTO targets (name, amount) VALUES ($name, $amount)",
+    );
 
     statement.executeAsync({
       $name: data.name,
       $amount: data.amount,
-    })
+    });
   }
 
   async function listBySavedValue(): Promise<TargetResponse[]> {
@@ -41,7 +47,7 @@ export function useTargetDatabase() {
         LEFT JOIN transactions ON transactions.target_id = targets.id
       GROUP BY targets.id, targets.name, targets.amount
       ORDER BY current DESC
-    `)
+    `);
   }
 
   async function show(id: number): Promise<TargetResponse> {
@@ -60,12 +66,29 @@ export function useTargetDatabase() {
       WHERE targets.id = ?
     `,
       id,
-    )
+    );
+  }
+
+  async function update(data: TargetUpdate) {
+    const statement = await database.prepareAsync(`
+      UPDATE targets SET
+        name = $name,
+        amount = $amount,
+        updated_at = CURRENT_TIMESTAMP,
+      WHERE id = $id
+    `);
+
+    statement.executeAsync({
+      $id: data.id,
+      $name: data.name,
+      $amount: data.amount,
+    });
   }
 
   return {
     show,
     create,
+    update,
     listBySavedValue,
-  }
+  };
 }
