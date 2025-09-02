@@ -53,7 +53,7 @@ export function useTargetDatabase() {
   async function show(id: number): Promise<TargetResponse> {
     return database.getFirstAsync(
       `
-      SELECT 
+      SELECT
         targets.id,
         targets.name,
         targets.amount,
@@ -71,10 +71,12 @@ export function useTargetDatabase() {
 
   async function update(data: TargetUpdate) {
     const statement = await database.prepareAsync(`
-      UPDATE targets SET
+      UPDATE
+        targets
+      SET
         name = $name,
         amount = $amount,
-        updated_at = CURRENT_TIMESTAMP,
+        updated_at = current_timestamp
       WHERE id = $id
     `);
 
