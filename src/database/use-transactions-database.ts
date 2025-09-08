@@ -15,7 +15,7 @@ export type TransactionResponse = {
   updated_at: Date;
 };
 
-export function useTransactionDatabase() {
+export function useTransactionsDatabase() {
   const database = useSQLiteContext();
 
   async function create(data: TransactionCreate) {
