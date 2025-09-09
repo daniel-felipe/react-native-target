@@ -1,27 +1,27 @@
-import { useSQLiteContext } from "expo-sqlite";
+import { useSQLiteContext } from 'expo-sqlite'
 
 export type TransactionCreate = {
-  target_id: number;
-  amount: number;
-  observation?: string;
-};
+  target_id: number
+  amount: number
+  observation?: string
+}
 
 export type TransactionResponse = {
-  id: number;
-  target_id: number;
-  amount: number;
-  observation: string;
-  created_at: Date;
-  updated_at: Date;
-};
+  id: number
+  target_id: number
+  amount: number
+  observation: string
+  created_at: Date
+  updated_at: Date
+}
 
 export type Summary = {
-  input: number;
-  output: number;
-};
+  input: number
+  output: number
+}
 
 export function useTransactionsDatabase() {
-  const database = useSQLiteContext();
+  const database = useSQLiteContext()
 
   async function create(data: TransactionCreate) {
     const statement = await database.prepareAsync(`
@@ -29,13 +29,13 @@ export function useTransactionsDatabase() {
         (target_id, amount, observation)
       VALUES
         ($target_id, $amount, $observation)
-    `);
+    `)
 
     statement.executeAsync({
       $target_id: data.target_id,
       $amount: data.amount,
       $observation: data.observation,
-    });
+    })
   }
 
   function listByTargetId(id: number) {
@@ -52,11 +52,11 @@ export function useTransactionsDatabase() {
       DESC
     `,
       id,
-    );
+    )
   }
 
   async function remove(id: number) {
-    await database.runAsync("DELETE FROM transactions WHERE id = ?", id);
+    await database.runAsync('DELETE FROM transactions WHERE id = ?', id)
   }
 
   function summary() {
@@ -66,7 +66,7 @@ export function useTransactionsDatabase() {
         COALESCE(SUM(CASE WHEN amount < 0 THEN amount ELSE 0 END), 0) AS output
       FROM
         transactions
-    `);
+    `)
   }
 
   return {
@@ -74,5 +74,5 @@ export function useTransactionsDatabase() {
     listByTargetId,
     remove,
     summary,
-  };
+  }
 }
