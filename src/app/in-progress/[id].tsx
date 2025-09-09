@@ -12,6 +12,7 @@ import { useTargetDatabase } from "@/database/use-target-database";
 import { numberToCurrency } from "@/utils/numberToCurrency";
 import { useTransactionsDatabase } from "@/database/use-transactions-database";
 import { TransactionType } from "@/enums/transaction-type";
+import dayjs from "dayjs";
 
 export default function InProgress() {
   const [transactions, setTransactions] = useState<TransactionProps[]>([]);
@@ -55,7 +56,7 @@ export default function InProgress() {
           (item): TransactionProps => ({
             id: String(item.id),
             value: numberToCurrency(item.amount),
-            date: item.created_at.toDateString(),
+            date: dayjs(item.created_at).format("DD/MM/YYYY [às] HH:mm"),
             description: item.observation,
             type:
               item.amount < 0 ? TransactionType.Output : TransactionType.Input,

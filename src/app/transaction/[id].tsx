@@ -8,7 +8,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { TransactionType } from "@/components/TransactionType";
 import { TransactionType as TransactionTypeEnum } from "@/enums/transaction-type";
 import { useTransactionsDatabase } from "@/database/use-transactions-database";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 export default function Transaction() {
   const [amount, setAmount] = useState(0);
@@ -36,12 +36,14 @@ export default function Transaction() {
       Alert.alert("Sucesso", "Transação salva com sucesso", [
         {
           text: "Ok",
-          onPress: () => router.back,
+          onPress: () => router.back(),
         },
       ]);
     } catch (error) {
       Alert.alert("Erro", "Não foi possível salvar a transação.");
       console.log(error);
+    } finally {
+      setIsCreating(false);
     }
   }
 
